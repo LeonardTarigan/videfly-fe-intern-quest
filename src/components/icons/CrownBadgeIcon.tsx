@@ -53,8 +53,8 @@ export default function CrownBadgeIcon(props: SVGAttributes<SVGElement>) {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(7.81966 4.25548) rotate(6.4525) scale(8.33014 11.0512)"
         >
-          <stop offset="0.5" stop-color="#8D62EC" />
-          <stop offset="1" stop-color="#703BE7" />
+          <stop offset="0.5" stopColor="#8D62EC" />
+          <stop offset="1" stopColor="#703BE7" />
         </radialGradient>
       </defs>
     </svg>
