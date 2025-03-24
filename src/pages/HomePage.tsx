@@ -10,11 +10,7 @@ export default function HomePage() {
       <main>
         <section className="space-y-4">
           <h3 className="text-2xl font-semibold">Produk</h3>
-          <SearchBar
-            onChange={() => {}}
-            onResetSearch={() => {}}
-            placeholder="Cari produk..."
-          />
+          <SearchBar />
           <div className="flex items-center gap-4">
             <Button
               variant={"outline"}

@@ -1,38 +1,15 @@
+import useSearch from "@/hooks/useSearch";
 import { cn } from "@/lib/utils";
-
+import { SearchIcon, XCircleIcon } from "lucide-react";
 import { Button } from "../ui/Button";
 import { Input } from "../ui/Input";
-import { SearchIcon, XCircleIcon } from "lucide-react";
-import { useEffect, useState } from "react";
-
-interface ISearchBar {
-  defaultValue?: string;
-  placeholder?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onResetSearch: () => void;
-}
 
 export default function SearchBar({
-  defaultValue,
-  onChange,
-  onResetSearch,
-  placeholder = "Cari Data",
-}: ISearchBar) {
-  const [inputValue, setInputValue] = useState(defaultValue);
-
-  useEffect(() => {
-    setInputValue(defaultValue);
-  }, [defaultValue]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    onChange(e);
-  };
-
-  const handleReset = () => {
-    setInputValue("");
-    onResetSearch();
-  };
+  placeholder = "Cari produk...",
+}: {
+  placeholder?: string;
+}) {
+  const { handleChange, handleReset, inputValue } = useSearch();
 
   return (
     <div
