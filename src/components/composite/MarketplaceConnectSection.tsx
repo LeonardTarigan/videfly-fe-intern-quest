@@ -1,4 +1,4 @@
-import useMarketplaceConnection from "@/hooks/useMarketplaceConnection";
+import { IMarketplace, IMarketplaceStatus } from "@/types/marketplace-types";
 import { Button } from "../ui/Button";
 import {
   Dialog,
@@ -10,17 +10,23 @@ import {
 } from "../ui/Dialog";
 import LoadingSpinner from "../ui/LoadingSpinner";
 
-export default function MarketplaceConnectSection() {
-  const {
-    marketplaceList,
-    marketplaceState,
-    isDialogOpen,
-    setIsDialogOpen,
-    handleConnectMarketplace,
-    isLoading,
-    isAnyMarketplaceConnected,
-  } = useMarketplaceConnection();
-
+export default function MarketplaceConnectSection({
+  marketplaceList,
+  marketplaceState,
+  isDialogOpen,
+  setIsDialogOpen,
+  handleConnectMarketplace,
+  isLoading,
+  isAnyMarketplaceConnected,
+}: {
+  marketplaceList: IMarketplace[];
+  marketplaceState: IMarketplaceStatus;
+  isAnyMarketplaceConnected: boolean;
+  isLoading: { [key: string]: boolean };
+  isDialogOpen: boolean;
+  setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleConnectMarketplace: (key: keyof IMarketplaceStatus) => Promise<void>;
+}) {
   if (isAnyMarketplaceConnected) return null;
 
   return (
@@ -39,7 +45,7 @@ export default function MarketplaceConnectSection() {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="mt-2 mb-4 text-sm">
+            <DialogTitle className="mt-2 mb-4 text-center text-sm">
               Tautkan Marketplace
             </DialogTitle>
             <DialogDescription />
