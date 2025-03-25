@@ -1,3 +1,4 @@
+import MarketplaceConnectSection from "@/components/composite/MarketplaceConnectSection";
 import SearchBar from "@/components/composite/SearchBar";
 import SortingSelect from "@/components/composite/SortingSelect";
 import FilterIcon from "@/components/icons/FilterIcon";
@@ -22,6 +23,10 @@ export default function HomePage() {
             </Button>
             <SortingSelect />
           </div>
+        </section>
+        <section className="mt-6">
+          <p className="mb-2 text-[#545454]">0 produk</p>
+          <MarketplaceConnectSection />
         </section>
       </main>
     </RootLayout>

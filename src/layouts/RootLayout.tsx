@@ -3,9 +3,9 @@ import { ReactNode } from "react";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="mx-auto max-w-lg">
+    <div className="mx-auto max-w-md">
       <Navbar />
-      <div className="px-4 py-5">{children}</div>
+      <div className="px-4 py-5 text-sm">{children}</div>
     </div>
   );
 }
