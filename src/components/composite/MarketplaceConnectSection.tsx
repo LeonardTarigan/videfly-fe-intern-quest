@@ -1,47 +1,39 @@
+import useMarketplaceConnection from "@/hooks/useMarketplaceConnection";
 import { Button } from "../ui/Button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "../ui/Dialog";
-
-const marketplaces = [
-  {
-    label: "Blibli",
-    logo: "/blibli-logo.webp",
-  },
-  {
-    label: "Lazada",
-    logo: "/lazada-logo.webp",
-  },
-  {
-    label: "Shopee",
-    logo: "/shopee-logo.webp",
-  },
-  {
-    label: "TiktokShop",
-    logo: "/tiktokshop-logo.webp",
-  },
-  {
-    label: "Tokopedia",
-    logo: "/tokopedia-logo.webp",
-  },
-];
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 export default function MarketplaceConnectSection() {
+  const {
+    marketplaceList,
+    marketplaceState,
+    isDialogOpen,
+    setIsDialogOpen,
+    handleConnectMarketplace,
+    isLoading,
+    isAnyMarketplaceConnected,
+  } = useMarketplaceConnection();
+
+  if (isAnyMarketplaceConnected) return null;
+
   return (
-    <div className="flex flex-col items-center gap-6 rounded-lg border px-6 py-36">
+    <div className="flex flex-col items-center gap-6 rounded-lg border px-6 py-[147px]">
       <img
         src="/marketplace-logos.webp"
         alt="Marketplace Logos"
-        className="w-[55%]"
+        className="w-[80%] sm:w-[55%]"
       />
-      <p className="w-[70%] text-center font-semibold">
+      <p className="text-center font-semibold sm:w-[70%]">
         Tampilkan katalog produk dari toko onlinemu secara otomatis
       </p>
-      <Dialog>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button>Tautkan Marketplace</Button>
         </DialogTrigger>
@@ -50,16 +42,25 @@ export default function MarketplaceConnectSection() {
             <DialogTitle className="mt-2 mb-4 text-sm">
               Tautkan Marketplace
             </DialogTitle>
+            <DialogDescription />
           </DialogHeader>
           <div className="space-y-5">
-            {marketplaces.map(({ label, logo }) => (
-              <div className="flex justify-between gap-3 text-sm font-medium">
+            {marketplaceList.map(({ key, label, logo }) => (
+              <div
+                key={key}
+                className="flex justify-between gap-3 text-sm font-medium"
+              >
                 <div className="flex items-center gap-4">
                   <img src={logo} alt={label} className="size-9 object-cover" />
                   <p>{label}</p>
                 </div>
-                <Button variant={"outline"} className="text-primary">
-                  Tautkan
+                <Button
+                  disabled={Boolean(marketplaceState[key])}
+                  onClick={() => handleConnectMarketplace(key)}
+                  variant={"outline"}
+                  className="text-primary"
+                >
+                  {isLoading[key] ? <LoadingSpinner /> : <span>Tautkan</span>}
                 </Button>
               </div>
             ))}

@@ -121,3 +121,52 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .loader {
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes toast-enter {
+    0% {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes toast-leave {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+  }
+
+  .animate-enter {
+    animation: toast-enter 300ms ease-out;
+  }
+
+  .animate-leave {
+    animation: toast-leave 300ms ease-in;
+  }
+}
