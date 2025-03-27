@@ -31,7 +31,17 @@ export default function useMarketplaceConnection() {
       const marketplaceLabel =
         marketplaces.find((m) => m.key === key)?.label || key;
 
-      toast((t) => <SuccessToast id={t.id} label={marketplaceLabel} />);
+      toast((t) => (
+        <SuccessToast
+          id={t.id}
+          content={
+            <p className="whitespace-nowrap">
+              Berhasil menghubungkan akun{" "}
+              <span className="font-semibold">{marketplaceLabel}</span>!
+            </p>
+          }
+        />
+      ));
     } catch (error) {
       console.error("Failed to connect to marketplace:", error);
     } finally {

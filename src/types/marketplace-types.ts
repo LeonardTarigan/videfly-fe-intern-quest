@@ -17,3 +17,8 @@ export type TMarketplaceConnectionLoadingState = Record<
   MarketplaceName,
   boolean
 >;
+
+export interface ISelectedMarketplace {
+  label: string;
+  value: MarketplaceName;
+}

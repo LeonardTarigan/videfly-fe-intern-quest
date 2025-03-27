@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "name": "Semua Produk",
+      "count": 93,
+      "subgroups": [
+        {
+          "name": "3.3 Ramadhan Sale",
+          "count": 10
+        },
+        {
+          "name": "Skincare",
+          "count": 43
+        },
+        {
+          "name": "Bodycare",
+          "count": 40
+        }
+      ]
+    }
+  ]
+}
