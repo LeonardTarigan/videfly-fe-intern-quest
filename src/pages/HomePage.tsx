@@ -15,7 +15,7 @@ export default function HomePage() {
     isDialogOpen,
     setIsDialogOpen,
     handleConnectMarketplace,
-    isLoading,
+    connectionLoading,
     isAnyMarketplaceConnected,
   } = useMarketplaceConnection();
 
@@ -25,7 +25,10 @@ export default function HomePage() {
         <section className="space-y-4">
           <h3 className="text-2xl font-semibold">Produk</h3>
           <ConnectedMarketplaceImportSection
+            marketplaces={marketplaces}
             connectedMarketplaces={connectedMarketplaces}
+            connectionLoading={connectionLoading}
+            handleConnectMarketplace={handleConnectMarketplace}
           />
           <SearchBar />
           <div className="flex items-center gap-4">
@@ -45,8 +48,8 @@ export default function HomePage() {
           <MarketplaceConnectSection
             marketplaces={marketplaces}
             isDialogOpen={isDialogOpen}
-            isLoading={isLoading}
             isAnyMarketplaceConnected={isAnyMarketplaceConnected}
+            connectionLoading={connectionLoading}
             setIsDialogOpen={setIsDialogOpen}
             handleConnectMarketplace={handleConnectMarketplace}
           />

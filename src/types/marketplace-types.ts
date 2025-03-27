@@ -12,3 +12,8 @@ export interface IMarketplace {
   logo: string;
   isConnected: boolean;
 }
+
+export type TMarketplaceConnectionLoadingState = Record<
+  MarketplaceName,
+  boolean
+>;

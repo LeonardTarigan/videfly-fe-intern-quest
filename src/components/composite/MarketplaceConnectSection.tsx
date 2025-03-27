@@ -1,4 +1,8 @@
-import { IMarketplace, MarketplaceName } from "@/types/marketplace-types";
+import {
+  IMarketplace,
+  MarketplaceName,
+  TMarketplaceConnectionLoadingState,
+} from "@/types/marketplace-types";
 import { Button } from "../ui/Button";
 import {
   Dialog,
@@ -15,13 +19,13 @@ export default function MarketplaceConnectSection({
   isDialogOpen,
   setIsDialogOpen,
   handleConnectMarketplace,
-  isLoading,
+  connectionLoading,
   isAnyMarketplaceConnected,
 }: {
   marketplaces: IMarketplace[];
   isAnyMarketplaceConnected: boolean;
-  isLoading: { [key: string]: boolean };
   isDialogOpen: boolean;
+  connectionLoading: TMarketplaceConnectionLoadingState;
   setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleConnectMarketplace: (key: MarketplaceName) => Promise<void>;
 }) {
@@ -63,7 +67,11 @@ export default function MarketplaceConnectSection({
                   variant={"outline"}
                   className="text-primary"
                 >
-                  {isLoading[key] ? <LoadingSpinner /> : <span>Tautkan</span>}
+                  {connectionLoading[key] ? (
+                    <LoadingSpinner />
+                  ) : (
+                    <span>Tautkan</span>
+                  )}
                 </Button>
               </div>
             ))}
