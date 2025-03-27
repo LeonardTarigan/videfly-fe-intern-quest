@@ -16,6 +16,7 @@ import { useSearchParams } from "react-router";
 export default function useProduct(connectedMarketplaces: IMarketplace[]) {
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("search")?.toLowerCase() || "";
+  const sortQuery = searchParams.get("sort") || "newest";
 
   const { products, addProductList } = useProductStore((state) => state);
 
@@ -65,6 +66,22 @@ export default function useProduct(connectedMarketplaces: IMarketplace[]) {
     );
   }, [products, searchQuery]);
 
+  const sortedProducts = useMemo(() => {
+    return [...filteredProducts].sort((a, b) => {
+      if (sortQuery === "newest")
+        return (
+          new Date(a.time_added).getTime() - new Date(b.time_added).getTime()
+        );
+      if (sortQuery === "oldest")
+        return (
+          new Date(b.time_added).getTime() - new Date(a.time_added).getTime()
+        );
+      if (sortQuery === "name-asc") return a.name.localeCompare(b.name);
+      if (sortQuery === "name-desc") return b.name.localeCompare(a.name);
+      return 0;
+    });
+  }, [filteredProducts, sortQuery]);
+
   const handleMarketplaceSelectChange = (value: MarketplaceName) => {
     const foundMarketplace = connectedMarketplaces.find(
       ({ key }) => key === value,
@@ -108,7 +125,7 @@ export default function useProduct(connectedMarketplaces: IMarketplace[]) {
   };
 
   return {
-    products: filteredProducts,
+    products: sortedProducts,
     productCategories,
     selectedMarketplace,
     handleMarketplaceSelectChange,
