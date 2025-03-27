@@ -27,15 +27,22 @@ export default function useSort() {
 
   const [selectedValue, setSelectedValue] = useState("newest");
   const [selectedLabel, setSelectedLabel] = useState("Terbaru");
+  const [isInitial, setIsInitial] = useState(true);
+  const [showBadge, setShowBadge] = useState(false);
 
   useEffect(() => {
-    const item = sortingItems.find((item) => item.value === selectedValue);
-    if (item) {
-      setSelectedLabel(item.label);
-      setSearchParams((params) => {
-        params.set("sort", item.value);
-        return params;
-      });
+    if (!isInitial) {
+      const item = sortingItems.find((item) => item.value === selectedValue);
+      if (item) {
+        setShowBadge(true);
+        setSelectedLabel(item.label);
+        setSearchParams((params) => {
+          params.set("sort", item.value);
+          return params;
+        });
+      }
+    } else {
+      setIsInitial(false);
     }
   }, [selectedValue]);
 
@@ -45,5 +52,7 @@ export default function useSort() {
     setSelectedValue,
     selectedLabel,
     setSelectedLabel,
+    isInitial,
+    showBadge,
   };
 }

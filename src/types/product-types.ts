@@ -13,4 +13,5 @@ export interface IProduct {
   marketplace: MarketplaceName;
   img: string;
   url: string;
+  time_added: string;
 }

@@ -4,17 +4,19 @@ import {
   ISelectedMarketplace,
   MarketplaceName,
 } from "@/types/marketplace-types";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import productCategoriesDummy from "@/lib/static/product-categories-dummy.json";
 import { useProductStore } from "@/store/product-store";
 import productListDummy from "@/lib/static/product-list-dummy.json";
 import { IProduct } from "@/types/product-types";
 import toast from "react-hot-toast";
 import SuccessToast from "@/components/ui/SuccessToast";
+import { useSearchParams } from "react-router";
 
-export default function useImportProduct(
-  connectedMarketplaces: IMarketplace[],
-) {
+export default function useProduct(connectedMarketplaces: IMarketplace[]) {
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("search")?.toLowerCase() || "";
+
   const { products, addProductList } = useProductStore((state) => state);
 
   const [productCategories] = useState(productCategoriesDummy.data);
@@ -54,6 +56,14 @@ export default function useImportProduct(
       }
     }
   }, [connectedMarketplaces]);
+
+  const filteredProducts = useMemo(() => {
+    return products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(searchQuery) ||
+        product.brand.toLowerCase().includes(searchQuery),
+    );
+  }, [products, searchQuery]);
 
   const handleMarketplaceSelectChange = (value: MarketplaceName) => {
     const foundMarketplace = connectedMarketplaces.find(
@@ -98,7 +108,7 @@ export default function useImportProduct(
   };
 
   return {
-    products,
+    products: filteredProducts,
     productCategories,
     selectedMarketplace,
     handleMarketplaceSelectChange,

@@ -14,7 +14,7 @@ export default function ProductCard({
   return (
     <div className="space-y-4 py-4">
       <div className="flex gap-4">
-        <img src={img} alt={name} className="size-20" />
+        <img src={img} alt={name} className="size-20 rounded-sm" />
         <a href={url} target="_blank" className="space-y-2 text-xs">
           <p className="font-medium underline">{name}</p>
           <p className="text-[#545454]">{brand}</p>

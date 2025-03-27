@@ -4,11 +4,9 @@ import MarketplaceConnectDropdown from "@/components/composite/MarketplaceConnec
 import MarketplaceConnectSection from "@/components/composite/MarketplaceConnectSection";
 import ProductCard from "@/components/composite/ProductCard";
 import SearchBar from "@/components/composite/SearchBar";
-import SortingSelect from "@/components/composite/SortingSelect";
-import FilterIcon from "@/components/icons/FilterIcon";
-import { Button } from "@/components/ui/Button";
-import useImportProduct from "@/hooks/useImportProduct";
+import SortingFilter from "@/components/composite/SortingFilter";
 import useMarketplaceConnection from "@/hooks/useMarketplaceConnection";
+import useProduct from "@/hooks/useProduct";
 import RootLayout from "@/layouts/RootLayout";
 
 export default function HomePage() {
@@ -31,7 +29,7 @@ export default function HomePage() {
     isDialogOpen: isImportDialogOpen,
     setIsDialogOpen: setIsImportDialogOpen,
     isLoading: isImportLoading,
-  } = useImportProduct(connectedMarketplaces);
+  } = useProduct(connectedMarketplaces);
 
   const renderMarketplaceConnectSection = !isAnyMarketplaceConnected;
   const renderImportProductLoading =
@@ -71,17 +69,7 @@ export default function HomePage() {
           )}
 
           <SearchBar />
-          <div className="flex items-center gap-4">
-            <Button
-              variant={"outline"}
-              size={"lg"}
-              className="gap-2.5 rounded-full"
-            >
-              <FilterIcon />
-              <span>Filter</span>
-            </Button>
-            <SortingSelect />
-          </div>
+          <SortingFilter />
         </section>
         <section className="mt-6">
           <p className="mb-2 text-[#545454]">{products.length} produk</p>
