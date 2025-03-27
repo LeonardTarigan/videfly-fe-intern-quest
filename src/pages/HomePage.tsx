@@ -26,6 +26,7 @@ export default function HomePage() {
     selectedMarketplace,
     handleMarketplaceSelectChange,
     handleImportProduct,
+    handleRemoveProduct,
     isDialogOpen: isImportDialogOpen,
     setIsDialogOpen: setIsImportDialogOpen,
     isLoading: isImportLoading,
@@ -113,7 +114,12 @@ export default function HomePage() {
           {renderProductListSection && (
             <div className="space-y-2">
               {products.map((product) => (
-                <ProductCard key={product.id} {...product} />
+                <ProductCard
+                  key={product.id}
+                  onDelete={handleRemoveProduct}
+                  onEdit={() => {}}
+                  {...product}
+                />
               ))}
             </div>
           )}

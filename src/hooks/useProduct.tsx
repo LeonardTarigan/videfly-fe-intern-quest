@@ -18,7 +18,8 @@ export default function useProduct(connectedMarketplaces: IMarketplace[]) {
   const searchQuery = searchParams.get("search")?.toLowerCase() || "";
   const sortQuery = searchParams.get("sort") || "newest";
 
-  const { products, addProductList } = useProductStore((state) => state);
+  const { products, addProductList, removeProduct, editProductName } =
+    useProductStore((state) => state);
 
   const [productCategories] = useState(productCategoriesDummy.data);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -118,10 +119,20 @@ export default function useProduct(connectedMarketplaces: IMarketplace[]) {
         />
       ));
     } catch (error) {
-      console.error("Failed to connect to marketplace:", error);
+      console.error("Failed to import product:", error);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleRemoveProduct = (id: string) => {
+    removeProduct(id);
+    toast((t) => (
+      <SuccessToast
+        id={t.id}
+        content={<p className="whitespace-nowrap">Produk berhasil dihapus</p>}
+      />
+    ));
   };
 
   return {
@@ -134,5 +145,7 @@ export default function useProduct(connectedMarketplaces: IMarketplace[]) {
     isLoading,
     setIsLoading,
     handleImportProduct,
+    handleRemoveProduct,
+    editProductName,
   };
 }

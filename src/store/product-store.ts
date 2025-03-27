@@ -1,4 +1,3 @@
-import { MarketplaceName } from "@/types/marketplace-types";
 import { IProduct } from "@/types/product-types";
 import { create } from "zustand";
 
@@ -6,7 +5,7 @@ interface IProductState {
   products: IProduct[];
   addProduct: (product: IProduct) => void;
   addProductList: (products: IProduct[]) => void;
-  removeProduct: (key: MarketplaceName) => void;
+  removeProduct: (id: string) => void;
   editProductName: (id: string, newName: string) => void;
 }
 

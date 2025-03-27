@@ -4,13 +4,20 @@ import SparkleIcon from "../icons/SparkleIcon";
 import EditIcon from "../icons/EditIcon";
 import DeleteIcon from "../icons/DeleteIcon";
 
+interface IProductCard extends IProduct {
+  onEdit: (id: string, newName: string) => void;
+  onDelete: (id: string) => void;
+}
+
 export default function ProductCard({
+  id,
   name,
   brand,
   img,
   url,
   marketplace,
-}: IProduct) {
+  onDelete,
+}: IProductCard) {
   return (
     <div className="space-y-4 py-4">
       <div className="flex gap-4">
@@ -38,7 +45,7 @@ export default function ProductCard({
         <Button variant={"ghost"} size={"icon"}>
           <EditIcon />
         </Button>
-        <Button variant={"ghost"} size={"icon"}>
+        <Button onClick={() => onDelete(id)} variant={"ghost"} size={"icon"}>
           <DeleteIcon />
         </Button>
       </div>
