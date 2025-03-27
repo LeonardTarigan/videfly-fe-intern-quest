@@ -1,4 +1,4 @@
-import { IMarketplace, IMarketplaceStatus } from "@/types/marketplace-types";
+import { IMarketplace, MarketplaceName } from "@/types/marketplace-types";
 import { Button } from "../ui/Button";
 import {
   Dialog,
@@ -11,21 +11,19 @@ import {
 import LoadingSpinner from "../ui/LoadingSpinner";
 
 export default function MarketplaceConnectSection({
-  marketplaceList,
-  marketplaceState,
+  marketplaces,
   isDialogOpen,
   setIsDialogOpen,
   handleConnectMarketplace,
   isLoading,
   isAnyMarketplaceConnected,
 }: {
-  marketplaceList: IMarketplace[];
-  marketplaceState: IMarketplaceStatus;
+  marketplaces: IMarketplace[];
   isAnyMarketplaceConnected: boolean;
   isLoading: { [key: string]: boolean };
   isDialogOpen: boolean;
   setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  handleConnectMarketplace: (key: keyof IMarketplaceStatus) => Promise<void>;
+  handleConnectMarketplace: (key: MarketplaceName) => Promise<void>;
 }) {
   if (isAnyMarketplaceConnected) return null;
 
@@ -51,7 +49,7 @@ export default function MarketplaceConnectSection({
             <DialogDescription />
           </DialogHeader>
           <div className="space-y-5">
-            {marketplaceList.map(({ key, label, logo }) => (
+            {marketplaces.map(({ key, label, logo }) => (
               <div
                 key={key}
                 className="flex justify-between gap-3 text-sm font-medium"
@@ -61,7 +59,6 @@ export default function MarketplaceConnectSection({
                   <p>{label}</p>
                 </div>
                 <Button
-                  disabled={Boolean(marketplaceState[key])}
                   onClick={() => handleConnectMarketplace(key)}
                   variant={"outline"}
                   className="text-primary"

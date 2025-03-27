@@ -1,50 +1,23 @@
 import SuccessToast from "@/components/ui/SuccessToast";
 import { useMarketplaceStore } from "@/store/marketplace-store";
-import { IMarketplace, IMarketplaceStatus } from "@/types/marketplace-types";
+import { MarketplaceName } from "@/types/marketplace-types";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-const marketplaceList: IMarketplace[] = [
-  {
-    key: "blibli",
-    label: "Blibli",
-    logo: "/blibli-logo.webp",
-  },
-  {
-    key: "lazada",
-    label: "Lazada",
-    logo: "/lazada-logo.webp",
-  },
-  {
-    key: "shopee",
-    label: "Shopee",
-    logo: "/shopee-logo.webp",
-  },
-  {
-    key: "tiktokshop",
-    label: "TiktokShop",
-    logo: "/tiktokshop-logo.webp",
-  },
-  {
-    key: "tokopedia",
-    label: "Tokopedia",
-    logo: "/tokopedia-logo.webp",
-  },
-];
-
 export default function useMarketplaceConnection() {
-  const [isLoading, setIsLoading] = useState<{ [key: string]: boolean }>({});
+  const [isLoading, setIsLoading] = useState<Record<MarketplaceName, boolean>>({
+    blibli: false,
+    lazada: false,
+    shopee: false,
+    tiktokshop: false,
+    tokopedia: false,
+  });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const { marketplace, connectMarketplace } = useMarketplaceStore(
-    (state) => state,
-  );
+  const { marketplaces, isAnyMarketplaceConnected, connectMarketplace } =
+    useMarketplaceStore((state) => state);
 
-  const isAnyMarketplaceConnected = Object.values(marketplace).some(
-    (isConnected) => isConnected,
-  );
-
-  const handleConnectMarketplace = async (key: keyof IMarketplaceStatus) => {
+  const handleConnectMarketplace = async (key: MarketplaceName) => {
     setIsLoading((prev) => ({ ...prev, [key]: true }));
 
     try {
@@ -52,7 +25,7 @@ export default function useMarketplaceConnection() {
       connectMarketplace(key);
 
       const marketplaceLabel =
-        marketplaceList.find((m) => m.key === key)?.label || key;
+        marketplaces.find((m) => m.key === key)?.label || key;
 
       toast((t) => <SuccessToast id={t.id} label={marketplaceLabel} />);
     } catch (error) {
@@ -63,9 +36,13 @@ export default function useMarketplaceConnection() {
     }
   };
 
+  const connectedMarketplaces = marketplaces.filter(
+    ({ isConnected }) => isConnected,
+  );
+
   return {
-    marketplaceState: marketplace,
-    marketplaceList,
+    marketplaces,
+    connectedMarketplaces,
     isLoading,
     handleConnectMarketplace,
     isDialogOpen,

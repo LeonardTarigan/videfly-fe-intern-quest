@@ -10,18 +10,14 @@ import RootLayout from "@/layouts/RootLayout";
 
 export default function HomePage() {
   const {
-    marketplaceList,
-    marketplaceState,
+    marketplaces,
+    connectedMarketplaces,
     isDialogOpen,
     setIsDialogOpen,
     handleConnectMarketplace,
     isLoading,
     isAnyMarketplaceConnected,
   } = useMarketplaceConnection();
-
-  const connectedMarketplaces = marketplaceList.filter(
-    ({ key }) => marketplaceState[key],
-  );
 
   return (
     <RootLayout>
@@ -47,8 +43,7 @@ export default function HomePage() {
         <section className="mt-6">
           <p className="mb-2 text-[#545454]">0 produk</p>
           <MarketplaceConnectSection
-            marketplaceList={marketplaceList}
-            marketplaceState={marketplaceState}
+            marketplaces={marketplaces}
             isDialogOpen={isDialogOpen}
             isLoading={isLoading}
             isAnyMarketplaceConnected={isAnyMarketplaceConnected}

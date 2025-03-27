@@ -1,13 +1,14 @@
-export interface IMarketplaceStatus {
-  blibli: boolean;
-  lazada: boolean;
-  shopee: boolean;
-  tiktokshop: boolean;
-  tokopedia: boolean;
+export enum MarketplaceName {
+  Blibli = "blibli",
+  Lazada = "lazada",
+  Shopee = "shopee",
+  TiktokShop = "tiktokshop",
+  Tokopedia = "tokopedia",
 }
 
 export interface IMarketplace {
-  key: keyof IMarketplaceStatus;
+  key: MarketplaceName;
   label: string;
   logo: string;
+  isConnected: boolean;
 }
