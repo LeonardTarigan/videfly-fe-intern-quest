@@ -1,23 +1,25 @@
 import { IProduct } from "@/types/product-types";
-import { Button } from "../ui/Button";
-import SparkleIcon from "../icons/SparkleIcon";
-import EditIcon from "../icons/EditIcon";
+import { Dispatch, SetStateAction } from "react";
 import DeleteIcon from "../icons/DeleteIcon";
-
-interface IProductCard extends IProduct {
-  onEdit: (id: string, newName: string) => void;
-  onDelete: (id: string) => void;
-}
+import EditIcon from "../icons/EditIcon";
+import SparkleIcon from "../icons/SparkleIcon";
+import { Button } from "../ui/Button";
 
 export default function ProductCard({
-  id,
-  name,
-  brand,
-  img,
-  url,
-  marketplace,
+  product,
+  setEditInputValue,
+  setCurrentId,
+  setIsEditDialogOpen,
   onDelete,
-}: IProductCard) {
+}: {
+  product: IProduct;
+  onDelete: (id: string) => void;
+  setEditInputValue: Dispatch<React.SetStateAction<string>>;
+  setCurrentId: Dispatch<SetStateAction<string | undefined>>;
+  setIsEditDialogOpen: Dispatch<SetStateAction<boolean>>;
+}) {
+  const { id, name, brand, img, marketplace, url } = product;
+
   return (
     <div className="space-y-4 py-4">
       <div className="flex gap-4">
@@ -42,9 +44,18 @@ export default function ProductCard({
           <SparkleIcon />
           <span className="font-medium">Buat Video</span>
         </Button>
-        <Button variant={"ghost"} size={"icon"}>
+        <Button
+          onClick={() => {
+            setEditInputValue(name);
+            setCurrentId(id);
+            setIsEditDialogOpen(true);
+          }}
+          variant={"ghost"}
+          size={"icon"}
+        >
           <EditIcon />
         </Button>
+
         <Button onClick={() => onDelete(id)} variant={"ghost"} size={"icon"}>
           <DeleteIcon />
         </Button>

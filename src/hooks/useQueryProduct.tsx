@@ -13,13 +13,12 @@ import toast from "react-hot-toast";
 import SuccessToast from "@/components/ui/SuccessToast";
 import { useSearchParams } from "react-router";
 
-export default function useProduct(connectedMarketplaces: IMarketplace[]) {
+export default function useQueryProduct(connectedMarketplaces: IMarketplace[]) {
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("search")?.toLowerCase() || "";
   const sortQuery = searchParams.get("sort") || "newest";
 
-  const { products, addProductList, removeProduct, editProductName } =
-    useProductStore((state) => state);
+  const { products, addProductList } = useProductStore((state) => state);
 
   const [productCategories] = useState(productCategoriesDummy.data);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -125,16 +124,6 @@ export default function useProduct(connectedMarketplaces: IMarketplace[]) {
     }
   };
 
-  const handleRemoveProduct = (id: string) => {
-    removeProduct(id);
-    toast((t) => (
-      <SuccessToast
-        id={t.id}
-        content={<p className="whitespace-nowrap">Produk berhasil dihapus</p>}
-      />
-    ));
-  };
-
   return {
     products: sortedProducts,
     productCategories,
@@ -145,7 +134,5 @@ export default function useProduct(connectedMarketplaces: IMarketplace[]) {
     isLoading,
     setIsLoading,
     handleImportProduct,
-    handleRemoveProduct,
-    editProductName,
   };
 }

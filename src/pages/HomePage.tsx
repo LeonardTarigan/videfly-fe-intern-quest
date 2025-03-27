@@ -1,3 +1,4 @@
+import EditProductDialog from "@/components/composite/EditProductDialog";
 import ImportProductDialog from "@/components/composite/ImportProductDialog";
 import ImportProductLoading from "@/components/composite/ImportProductLoading";
 import MarketplaceConnectDropdown from "@/components/composite/MarketplaceConnectDropdown";
@@ -6,7 +7,8 @@ import ProductCard from "@/components/composite/ProductCard";
 import SearchBar from "@/components/composite/SearchBar";
 import SortingFilter from "@/components/composite/SortingFilter";
 import useMarketplaceConnection from "@/hooks/useMarketplaceConnection";
-import useProduct from "@/hooks/useProduct";
+import useMutateProduct from "@/hooks/useMutateProduct";
+import useQueryProduct from "@/hooks/useQueryProduct";
 import RootLayout from "@/layouts/RootLayout";
 
 export default function HomePage() {
@@ -26,11 +28,20 @@ export default function HomePage() {
     selectedMarketplace,
     handleMarketplaceSelectChange,
     handleImportProduct,
-    handleRemoveProduct,
     isDialogOpen: isImportDialogOpen,
     setIsDialogOpen: setIsImportDialogOpen,
     isLoading: isImportLoading,
-  } = useProduct(connectedMarketplaces);
+  } = useQueryProduct(connectedMarketplaces);
+
+  const {
+    handleRemoveProduct,
+    handleEditProduct,
+    editInputValue,
+    setEditInputValue,
+    isEditDialogOpen,
+    setIsEditDialogOpen,
+    setCurrentId,
+  } = useMutateProduct();
 
   const renderMarketplaceConnectSection = !isAnyMarketplaceConnected;
   const renderImportProductLoading =
@@ -111,14 +122,30 @@ export default function HomePage() {
               />
             </div>
           )}
+          <EditProductDialog
+            {...{
+              editInputValue,
+              setEditInputValue,
+              isDialogOpen: isEditDialogOpen,
+              setIsDialogOpen: setIsEditDialogOpen,
+              onEdit: handleEditProduct,
+            }}
+          />
           {renderProductListSection && (
             <div className="space-y-2">
               {products.map((product) => (
                 <ProductCard
                   key={product.id}
-                  onDelete={handleRemoveProduct}
-                  onEdit={() => {}}
-                  {...product}
+                  {...{
+                    product,
+                    isEditDialogOpen,
+                    setIsEditDialogOpen,
+                    editInputValue,
+                    setEditInputValue,
+                    setCurrentId,
+                    onDelete: handleRemoveProduct,
+                    onEdit: handleEditProduct,
+                  }}
                 />
               ))}
             </div>
