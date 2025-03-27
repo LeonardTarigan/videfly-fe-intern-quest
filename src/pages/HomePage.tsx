@@ -2,6 +2,7 @@ import ImportProductDialog from "@/components/composite/ImportProductDialog";
 import ImportProductLoading from "@/components/composite/ImportProductLoading";
 import MarketplaceConnectDropdown from "@/components/composite/MarketplaceConnectDropdown";
 import MarketplaceConnectSection from "@/components/composite/MarketplaceConnectSection";
+import ProductCard from "@/components/composite/ProductCard";
 import SearchBar from "@/components/composite/SearchBar";
 import SortingSelect from "@/components/composite/SortingSelect";
 import FilterIcon from "@/components/icons/FilterIcon";
@@ -32,6 +33,14 @@ export default function HomePage() {
     isLoading: isImportLoading,
   } = useImportProduct(connectedMarketplaces);
 
+  const renderMarketplaceConnectSection = !isAnyMarketplaceConnected;
+  const renderImportProductLoading =
+    isAnyMarketplaceConnected && isImportLoading;
+  const renderImportProductSection =
+    isAnyMarketplaceConnected && products.length === 0 && !isImportLoading;
+  const renderProductListSection =
+    isAnyMarketplaceConnected && products.length !== 0 && !isImportLoading;
+
   return (
     <RootLayout>
       <main>
@@ -40,19 +49,23 @@ export default function HomePage() {
           {isAnyMarketplaceConnected && (
             <div className="flex items-center justify-between gap-2">
               <MarketplaceConnectDropdown
-                marketplaces={marketplaces}
-                connectedMarketplaces={connectedMarketplaces}
-                connectionLoading={connectionLoading}
-                handleConnectMarketplace={handleConnectMarketplace}
+                {...{
+                  marketplaces,
+                  connectedMarketplaces,
+                  connectionLoading,
+                  handleConnectMarketplace,
+                }}
               />
               <ImportProductDialog
-                productCategories={productCategories}
-                isDialogOpen={isImportDialogOpen}
-                setIsDialogOpen={setIsImportDialogOpen}
-                connectedMarketplaces={connectedMarketplaces}
-                selectedMarketplace={selectedMarketplace}
-                onMarketplaceSelectChange={handleMarketplaceSelectChange}
-                onImportProduct={handleImportProduct}
+                {...{
+                  productCategories,
+                  connectedMarketplaces,
+                  selectedMarketplace,
+                  isDialogOpen: isImportDialogOpen,
+                  setIsDialogOpen: setIsImportDialogOpen,
+                  onMarketplaceSelectChange: handleMarketplaceSelectChange,
+                  onImportProduct: handleImportProduct,
+                }}
               />
             </div>
           )}
@@ -72,41 +85,50 @@ export default function HomePage() {
         </section>
         <section className="mt-6">
           <p className="mb-2 text-[#545454]">{products.length} produk</p>
-          <MarketplaceConnectSection
-            marketplaces={marketplaces}
-            isDialogOpen={isConnectDialogOpen}
-            isAnyMarketplaceConnected={isAnyMarketplaceConnected}
-            connectionLoading={connectionLoading}
-            setIsDialogOpen={setIsConnectDialogOpen}
-            handleConnectMarketplace={handleConnectMarketplace}
-          />
-          {isAnyMarketplaceConnected && isImportLoading && (
-            <ImportProductLoading />
+
+          {renderMarketplaceConnectSection && (
+            <MarketplaceConnectSection
+              {...{
+                marketplaces,
+                connectionLoading,
+                handleConnectMarketplace,
+                isDialogOpen: isConnectDialogOpen,
+                setIsDialogOpen: setIsConnectDialogOpen,
+              }}
+            />
           )}
-          {isAnyMarketplaceConnected &&
-            products.length === 0 &&
-            !isImportLoading && (
-              <div className="flex flex-col items-center gap-6 rounded-lg border px-6 py-[147px]">
-                <img
-                  src="/catalog-logo.webp"
-                  alt="Catalog Logo"
-                  className="size-8"
-                />
-                <p className="text-center font-semibold sm:w-[70%]">
-                  Import data produk untuk pembuatan konten praktis
-                </p>
-                <ImportProductDialog
-                  buttonText="Impor Data Produk"
-                  productCategories={productCategories}
-                  isDialogOpen={isImportDialogOpen}
-                  setIsDialogOpen={setIsImportDialogOpen}
-                  connectedMarketplaces={connectedMarketplaces}
-                  selectedMarketplace={selectedMarketplace}
-                  onMarketplaceSelectChange={handleMarketplaceSelectChange}
-                  onImportProduct={handleImportProduct}
-                />
-              </div>
-            )}
+          {renderImportProductLoading && <ImportProductLoading />}
+          {renderImportProductSection && (
+            <div className="flex flex-col items-center gap-6 rounded-lg border px-6 py-[147px]">
+              <img
+                src="/catalog-logo.webp"
+                alt="Catalog Logo"
+                className="size-8"
+              />
+              <p className="text-center font-semibold sm:w-[70%]">
+                Import data produk untuk pembuatan konten praktis
+              </p>
+              <ImportProductDialog
+                {...{
+                  productCategories,
+                  connectedMarketplaces,
+                  selectedMarketplace,
+                  buttonText: "Impor Data Produk",
+                  isDialogOpen: isImportDialogOpen,
+                  setIsDialogOpen: setIsImportDialogOpen,
+                  onMarketplaceSelectChange: handleMarketplaceSelectChange,
+                  onImportProduct: handleImportProduct,
+                }}
+              />
+            </div>
+          )}
+          {renderProductListSection && (
+            <div className="space-y-2">
+              {products.map((product) => (
+                <ProductCard key={product.id} {...product} />
+              ))}
+            </div>
+          )}
         </section>
       </main>
     </RootLayout>

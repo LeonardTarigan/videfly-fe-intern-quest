@@ -1,34 +1,44 @@
 {
   "data": [
     {
+      "id": "0062ece7-ac29-4f38-bb95-8136ff6f0f58",
       "name": "EARTH LOVE LIFE Bulgarian Rose & East Nusa Vanilla Body Lotion 250 ml BODY SERUM | LOTION WANGI | LOTION MELEMBABKAN | LOTION",
       "brand": "Earth Love Life",
-      "marketplace": "tokopedia",
-      "img": ""
+      "marketplace": "Tokopedia",
+      "img": "/product-img-1.webp",
+      "url": "https://www.tokopedia.com/earthlovelife/earth-love-life-body-wash-combo-package-rose-lavender"
     },
     {
+      "id": "b26d85ba-9d57-41aa-a753-a1f4231be469",
       "name": "Wardah UV Shield Essential Sunscreen Gel SPF 30 PA+++ 40ml",
       "brand": "Wardah",
-      "marketplace": "tokopedia",
-      "img": ""
+      "marketplace": "Tokopedia",
+      "img": "/product-img-2.webp",
+      "url": "https://www.tokopedia.com/earthlovelife/earth-love-life-body-wash-combo-package-rose-lavender"
     },
     {
+      "id": "670c8b3f-047b-468a-a7f0-9ab6f64194d1",
       "name": "Wardah UV Shield Aqua Fresh Sunscreen Serum SPF 50 PA++++ 30 ml",
       "brand": "Wardah",
-      "marketplace": "tokopedia",
-      "img": ""
+      "marketplace": "Tokopedia",
+      "img": "/product-img-3.webp",
+      "url": "https://www.tokopedia.com/earthlovelife/earth-love-life-body-wash-combo-package-rose-lavender"
     },
     {
+      "id": "b79cfdfa-4ae5-4b3e-9ac4-e4517cdbb406",
       "name": "Kahf Oil and Acne Care Face Wash 100 ml-Sabun Wajah Pria",
       "brand": "Kahf",
-      "marketplace": "tokopedia",
-      "img": ""
+      "marketplace": "Tokopedia",
+      "img": "/product-img-4.webp",
+      "url": "https://www.tokopedia.com/earthlovelife/earth-love-life-body-wash-combo-package-rose-lavender"
     },
     {
+      "id": "f7713d00-99a6-4ca8-8842-c20e7de7d041",
       "name": "Wardah Hydra Rose 14X Hyaluronic Pentavitin Deep Barrier Repair Serum 30 ml - Serum dengan Allantoin - Perawatan Wajah untuk Kulit - Resilient Skin",
       "brand": "Wardah",
-      "marketplace": "tokopedia",
-      "img": ""
+      "marketplace": "Tokopedia",
+      "img": "/product-img-5.webp",
+      "url": "https://www.tokopedia.com/earthlovelife/earth-love-life-body-wash-combo-package-rose-lavender"
     }
   ]
 }

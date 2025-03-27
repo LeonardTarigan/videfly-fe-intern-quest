@@ -20,17 +20,13 @@ export default function MarketplaceConnectSection({
   setIsDialogOpen,
   handleConnectMarketplace,
   connectionLoading,
-  isAnyMarketplaceConnected,
 }: {
   marketplaces: IMarketplace[];
-  isAnyMarketplaceConnected: boolean;
   isDialogOpen: boolean;
   connectionLoading: TMarketplaceConnectionLoadingState;
   setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleConnectMarketplace: (key: MarketplaceName) => Promise<void>;
 }) {
-  if (isAnyMarketplaceConnected) return null;
-
   return (
     <div className="flex flex-col items-center gap-6 rounded-lg border px-6 py-[147px]">
       <img

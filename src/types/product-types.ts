@@ -12,4 +12,5 @@ export interface IProduct {
   brand: string;
   marketplace: MarketplaceName;
   img: string;
+  url: string;
 }
