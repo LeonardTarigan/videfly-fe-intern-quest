@@ -1,54 +1,71 @@
-# React + TypeScript + Vite
+# Videfly Frontend Intern Quest
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is developed for the Videfly Frontend Intern Quest number 3, which is Mobile Product Showcase. The goal of this quest is to make a mobile-friendly product page with some functionalities showed in the [design prototype](https://www.figma.com/design/DPvxQXFgxLUtYkamgh4veA/Videfly-Front-End-Quest?node-id=1-2108&p=f&t=H0agfnUo3YEmK2M0-0)
 
-Currently, two official plugins are available:
+## Tech Stack
+- Runtime: Node v21.7.3
+- Package Manager: pnpm
+- Framework: React with Vite
+- Language: TypeScript
+- Styling: Tailwind CSS
+- State Management: Zustand
+- UI Components: Shadcn UI
+- Notifications: React Hot Toast
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Additionally, the project uses [prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss) to automatically sort Tailwind CSS classes for consistency and readability.
 
-## Expanding the ESLint configuration
+## Image Optimization
+All images are stored in **WEBP** format to optimize resource loading and improve performance.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Project Structure
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+├── .gitignore
+├── .prettierrc
+├── README.md
+├── components.json
+├── eslint.config.js
+├── index.html
+├── package.json
+├── pnpm-lock.yaml
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── composite/
+│   │   ├── icons/
+│   │   └── ui/
+│   ├── hooks/
+│   ├── index.css
+│   ├── layouts/
+│   ├── lib/
+│   │   ├── static/
+│   │   └── utils.ts
+│   ├── main.tsx
+│   ├── pages/
+│   ├── routes/
+│   ├── store/
+│   ├── types/
+│   └── vite-env.d.ts
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+## Installation
+Clone this repository in your local machine
+```sh
+git clone https://github.com/LeonardTarigan/videfly-fe-intern-quest.git
+```
+Navigate to the directory
+```sh
+cd ./videfly-fe-intern-quest
+```
+Install the dependencies
+```sh
+pnpm i
+```
+Run the dev server
+```sh
+pnpm dev
 ```
